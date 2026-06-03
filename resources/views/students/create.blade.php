@@ -1,64 +1,135 @@
+<div style="max-width: 580px; font-family: 'DM Sans', sans-serif; padding: 40px;">
 
-    <div style="max-width: 600px; margin: auto;">
-        
-        <h2 style="font-size: 24px; margin-bottom: 20px;">Add Student</h2>
+    {{-- Header --}}
+    <div style="margin-bottom: 28px;">
+        <h2 style="font-family: 'DM Serif Display', serif; font-size: 1.8rem; font-weight: 500;
+                   color: #0c4a6e; margin-bottom: 6px;">
+            Add Student
+        </h2>
+        <p style="color: #94a3b8; font-size: 13px;">
+            Fill in the details below to create a new student record.
+        </p>
+    </div>
 
-        {{-- ERRORS --}}
-        @if ($errors->any())
-            <div style="color: red; margin-bottom: 10px;">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+    {{-- Errors --}}
+    @if($errors->any())
+        <div style="display:flex; align-items:flex-start; gap:10px; padding:12px 16px;
+                    background:#fff1f2; border:1px solid #fecdd3; border-radius:10px;
+                    color:#9f1239; font-size:13px; margin-bottom:20px;">
+            <i class="ti ti-alert-circle" style="font-size:17px; flex-shrink:0; margin-top:1px;"></i>
+            <ul style="margin:0; padding-left:16px;">
+                @foreach($errors->all() as $error)
+                    <li style="margin-bottom:3px;">{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
-        <form method="POST" action="{{ route('students.store') }}">
-            @csrf
-    
-            {{-- FIRST NAME --}}
-            <div style="margin-bottom: 15px;">
-                <label>First Name</label><br>
+    <form method="POST" action="{{ route('students.store') }}">
+        @csrf
+
+        {{-- First Name + Last Name --}}
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:20px;">
+
+            <div>
+                <label style="display:block; font-size:12px; font-weight:600; letter-spacing:1.5px;
+                               text-transform:uppercase; color:#94a3b8; margin-bottom:8px;">
+                    First Name
+                </label>
                 <input type="text" name="first_name" value="{{ old('first_name') }}"
-                       style="width: 100%; padding: 8px;">
+                       placeholder="e.g. Chidi"
+                       style="width:100%; padding:12px 14px; border:1px solid #e0f2fe;
+                              border-radius:10px; background:#f0f9ff; color:#0c4a6e;
+                              font-family:'DM Sans',sans-serif; font-size:14px; outline:none;
+                              transition:all 0.2s;">
             </div>
 
-            {{-- LAST NAME --}}
-            <div style="margin-bottom: 15px;">
-                <label>Last Name</label><br>
+            <div>
+                <label style="display:block; font-size:12px; font-weight:600; letter-spacing:1.5px;
+                               text-transform:uppercase; color:#94a3b8; margin-bottom:8px;">
+                    Last Name
+                </label>
                 <input type="text" name="last_name" value="{{ old('last_name') }}"
-                       style="width: 100%; padding: 8px;">
+                       placeholder="e.g. Adeyemi"
+                       style="width:100%; padding:12px 14px; border:1px solid #e0f2fe;
+                              border-radius:10px; background:#f0f9ff; color:#0c4a6e;
+                              font-family:'DM Sans',sans-serif; font-size:14px; outline:none;
+                              transition:all 0.2s;">
             </div>
 
-            {{-- CLASS (HARDCODED) --}}
-            <div style="margin-bottom: 15px;">
-                <label>Select Class</label><br>
-                <select name="class_id" style="width: 100%; padding: 8px;">
-                @foreach($classes as $class)
-            <option value="{{ $class->id }}">{{ $class->name }}</option>
-        @endforeach
+        </div>
+
+        {{-- Class + Parent --}}
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px;">
+
+            <div>
+                <label style="display:block; font-size:12px; font-weight:600; letter-spacing:1.5px;
+                               text-transform:uppercase; color:#94a3b8; margin-bottom:8px;">
+                    Select Class
+                </label>
+                <select name="class_id"
+                        style="width:100%; padding:12px 38px 12px 14px; border:1px solid #e0f2fe;
+                               border-radius:10px; background:#f0f9ff url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'12\' height=\'12\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%230ea5e9\' stroke-width=\'2.5\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3E%3Cpolyline points=\'6 9 12 15 18 9\'%3E%3C/polyline%3E%3C/svg%3E') no-repeat right 14px center;
+                               color:#0c4a6e; font-family:\'DM Sans\',sans-serif; font-size:14px;
+                               outline:none; appearance:none; -webkit-appearance:none; cursor:pointer;">
+                    @foreach($classes as $class)
+                        <option value="{{ $class->id }}"
+                            {{ old('class_id') == $class->id ? 'selected' : '' }}>
+                            {{ $class->name }}
+                        </option>
+                    @endforeach
                 </select>
             </div>
 
-            {{-- SINGLE PARENT SELECT --}}
-            <div style="margin-bottom: 15px;">
-                <label>Select Parent</label><br>
-                <select name="parent_id" style="width: 100%; padding: 8px;">
-                    <option disabled selected>-- Select Parent --</option>
+            <div>
+                <label style="display:block; font-size:12px; font-weight:600; letter-spacing:1.5px;
+                               text-transform:uppercase; color:#94a3b8; margin-bottom:8px;">
+                    Select Parent
+                </label>
+                <select name="parent_id"
+                        style="width:100%; padding:12px 38px 12px 14px; border:1px solid #e0f2fe;
+                               border-radius:10px; background:#f0f9ff url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'12\' height=\'12\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%230ea5e9\' stroke-width=\'2.5\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3E%3Cpolyline points=\'6 9 12 15 18 9\'%3E%3C/polyline%3E%3C/svg%3E') no-repeat right 14px center;
+                               color:#0c4a6e; font-family:\'DM Sans\',sans-serif; font-size:14px;
+                               outline:none; appearance:none; -webkit-appearance:none; cursor:pointer;">
+                    <option disabled {{ old('parent_id') ? '' : 'selected' }} value="">
+                        — Select Parent —
+                    </option>
                     @foreach($parents as $parent)
-                        <option value="{{ $parent->id }}">
+                        <option value="{{ $parent->id }}"
+                            {{ old('parent_id') == $parent->id ? 'selected' : '' }}>
                             {{ $parent->name }} ({{ $parent->email }})
                         </option>
                     @endforeach
                 </select>
             </div>
 
-            {{-- SUBMIT --}}
+        </div>
+
+        {{-- Submit --}}
+        <div style="display:flex; justify-content:flex-end;">
             <button type="submit"
-                    style="padding: 10px 20px; background: #3490dc; color: white; border: none; border-radius: 5px;">
+                    style="display:inline-flex; align-items:center; gap:8px; padding:13px 28px;
+                           background:linear-gradient(135deg,#0ea5e9,#06b6d4); color:white;
+                           border:none; border-radius:10px; font-family:'DM Sans',sans-serif;
+                           font-size:14px; font-weight:600; cursor:pointer;
+                           box-shadow:0 4px 12px rgba(14,165,233,0.25); transition:all 0.2s;">
+                <i class="ti ti-user-plus" style="font-size:16px;"></i>
                 Save Student
             </button>
+        </div>
 
-        </form>
-    </div>
+    </form>
+</div>
+
+<style>
+    input[type="text"]:focus, select:focus {
+        border-color: #0ea5e9 !important;
+        box-shadow: 0 0 0 3px rgba(14,165,233,0.12) !important;
+        background: white !important;
+    }
+    button[type="submit"]:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(14,165,233,0.35) !important;
+    }
+    input::placeholder { color: #94a3b8; }
+</style>

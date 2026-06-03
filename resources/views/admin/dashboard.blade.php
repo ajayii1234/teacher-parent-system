@@ -7,272 +7,236 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 
     <style>
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary: #0ea5e9;
+            --primary-dark: #0284c7;
+            --primary-light: #f0f9ff;
+            --primary-border: #e0f2fe;
+            --bg: #ffffff;
+            --bg-alt: #f8fafc;
+            --border: #e0f2fe;
+            --text: #0c4a6e;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --sidebar-width: 270px;
+            --topbar-height: 70px;
         }
 
-        :root{
-            --bg:#060D1A;
-            --bg2:#0C1B30;
-            --card:#10233B;
-            --green:#27AE60;
-            --green-dark:#166B3A;
-            --blue:#3490dc;
-            --purple:#6f42c1;
-            --border:rgba(255,255,255,0.08);
-            --text:#fff;
-            --muted:#7E91A8;
-            --sidebar:270px;
-            --topbar:60px;
+        html, body { height: 100%; }
+
+        body {
+            overflow: hidden;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 400;
         }
 
-        html,
-        body{
-            height:100%;
+        /* ── TOPBAR ── */
+        .topbar {
+            height: var(--topbar-height);
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            box-shadow: 0 1px 3px rgba(14, 165, 233, 0.08);
         }
 
-        body{
-            overflow:hidden;
-            background:var(--bg);
-            color:var(--text);
-            font-family:'DM Sans', sans-serif;
+        .brand { display: flex; align-items: center; gap: 16px; }
+
+        .brand-icon {
+            width: 44px; height: 44px; border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary) 0%, #06b6d4 100%);
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 22px;
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.25);
         }
 
-        .topbar{
-            height:var(--topbar);
-            background:var(--bg2);
-            border-bottom:1px solid var(--border);
-            display:flex;
-            align-items:center;
-            justify-content:space-between;
-            padding:0 20px;
+        .brand h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.3rem; font-weight: 500;
+            color: var(--text); letter-spacing: 0.5px;
         }
 
-        .brand{
-            display:flex;
-            align-items:center;
-            gap:12px;
+        .top-right { display: flex; align-items: center; gap: 20px; }
+
+        .user-chip {
+            display: flex; align-items: center; gap: 12px;
+            padding: 10px 16px; background: var(--primary-light);
+            border: 1px solid var(--border); border-radius: 12px;
+            transition: all 0.2s;
         }
 
-        .brand img{
-            width:38px;
-            height:38px;
-            object-fit:contain;
+        .user-chip:hover { border-color: var(--primary); background: #e0f7ff; }
+
+        .avatar {
+            width: 38px; height: 38px; border-radius: 10px;
+            background: linear-gradient(135deg, var(--primary) 0%, #06b6d4 100%);
+            border: 2px solid white;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: 600; font-size: 15px;
+            box-shadow: 0 2px 8px rgba(14, 165, 233, 0.2);
         }
 
-        .brand h2{
-            font-family:'Cormorant Garamond', serif;
-            font-size:1.2rem;
-            letter-spacing:1px;
+        .user-chip span { color: var(--text); font-weight: 500; font-size: 14px; }
+
+        .logout-btn {
+            border: 1px solid var(--border); background: var(--primary-light);
+            color: var(--primary); cursor: pointer; padding: 10px 18px;
+            border-radius: 10px; font-family: 'DM Sans', sans-serif;
+            font-size: 13px; font-weight: 500; transition: all 0.2s;
+            display: flex; align-items: center; gap: 6px;
         }
 
-        .top-right{
-            display:flex;
-            align-items:center;
-            gap:14px;
+        .logout-btn:hover {
+            background: var(--primary); color: white;
+            border-color: var(--primary); transform: translateY(-1px);
         }
 
-        .user-chip{
-            display:flex;
-            align-items:center;
-            gap:10px;
+        /* ── LAYOUT ── */
+        .layout { display: flex; height: calc(100vh - var(--topbar-height)); }
+
+        /* ── SIDEBAR ── */
+        .sidebar {
+            width: var(--sidebar-width); background: var(--bg);
+            border-right: 1px solid var(--border);
+            padding: 28px 20px; overflow-y: auto;
+            display: flex; flex-direction: column;
         }
 
-        .avatar{
-            width:34px;
-            height:34px;
-            border-radius:50%;
-            background:var(--green-dark);
-            border:1px solid var(--green);
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            color:#fff;
-            font-weight:700;
+        .sidebar::-webkit-scrollbar { width: 6px; }
+        .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+        .sidebar::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
+        .sidebar-title {
+            font-size: 11px; letter-spacing: 2.5px;
+            text-transform: uppercase; color: var(--text-muted);
+            margin-bottom: 12px; font-weight: 600;
         }
 
-        .logout-btn{
-            border:none;
-            background:transparent;
-            color:#fff;
-            cursor:pointer;
-            border:1px solid var(--border);
-            padding:10px 14px;
-            border-radius:6px;
+        .sidebar-title.gap { margin-top: 20px; }
+
+        .nav-item {
+            width: 100%; display: flex; align-items: center; gap: 12px;
+            text-decoration: none; color: var(--text-secondary);
+            padding: 12px 14px; border-radius: 10px; cursor: pointer;
+            margin-bottom: 4px; transition: all 0.2s; font-size: 14px;
+            border: 1px solid transparent; background: transparent; font-weight: 500;
         }
 
-        .layout{
-            display:flex;
-            height:calc(100vh - var(--topbar));
+        .nav-item i { font-size: 18px; width: 20px; }
+
+        .nav-item:hover {
+            background: var(--primary-light);
+            color: var(--primary); border-color: var(--border);
         }
 
-        .sidebar{
-            width:var(--sidebar);
-            background:var(--bg2);
-            border-right:1px solid var(--border);
-            padding:20px;
-            overflow-y:auto;
+        .nav-item.active {
+            background: var(--primary-light); color: var(--primary);
+            border: 1px solid var(--primary-border);
+            box-shadow: 0 2px 8px rgba(14, 165, 233, 0.12);
         }
 
-        .sidebar-title{
-            font-size:.7rem;
-            letter-spacing:3px;
-            text-transform:uppercase;
-            color:var(--muted);
-            margin-bottom:15px;
+        /* ── CONTENT ── */
+        .content {
+            flex: 1; display: flex;
+            flex-direction: column; overflow: hidden;
+            background: var(--bg-alt);
         }
 
-        .nav-link{
-            width:100%;
-            display:block;
-            text-decoration:none;
-            color:rgba(255,255,255,.65);
-            padding:14px 15px;
-            border-radius:8px;
-            text-align:left;
-            cursor:pointer;
-            margin-bottom:10px;
-            transition:.2s;
-            font-size:.92rem;
-            border:1px solid transparent;
-            background:transparent;
+        .content-header {
+            padding: 28px 36px; border-bottom: 1px solid var(--border);
+            background: white; animation: slideDown 0.4s ease-out;
         }
 
-        .nav-link:hover{
-            background:rgba(39,174,96,.1);
-            color:#fff;
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-12px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
 
-        .nav-link.active{
-            background:rgba(39,174,96,.15);
-            color:#fff;
-            border:1px solid rgba(39,174,96,.3);
+        .content-header h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2rem; font-weight: 500;
+            color: var(--text); margin-bottom: 6px;
         }
 
-        .content{
-            flex:1;
-            display:flex;
-            flex-direction:column;
-            overflow:hidden;
+        .content-header p { color: var(--text-muted); font-size: 13px; }
+
+        .iframe-wrapper {
+            flex: 1; padding: 20px;
+            overflow: hidden; background: var(--bg-alt);
         }
 
-        .content-header{
-            padding:25px;
-            border-bottom:1px solid var(--border);
+        iframe {
+            width: 100%; height: 100%;
+            border: 1px solid var(--border); border-radius: 14px;
+            background: white;
+            box-shadow: 0 4px 16px rgba(14, 165, 233, 0.08);
         }
 
-        .content-header h1{
-            font-family:'Cormorant Garamond', serif;
-            font-size:2rem;
-            font-weight:500;
-            margin-bottom:5px;
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1100px) {
+            :root { --sidebar-width: 240px; }
+            .content-header h1 { font-size: 1.7rem; }
         }
 
-        .content-header p{
-            color:var(--muted);
-            font-size:.9rem;
-        }
-
-        .iframe-wrapper{
-            flex:1;
-            padding:15px;
-            background:var(--bg);
-        }
-
-        iframe{
-            width:100%;
-            height:100%;
-            border:none;
-            border-radius:10px;
-            background:#fff;
-        }
-
-        @media(max-width:900px){
-            .sidebar{
-                width:220px;
+        @media (max-width: 800px) {
+            .layout { flex-direction: column; }
+            .sidebar {
+                width: 100%; height: auto; border-right: none;
+                border-bottom: 1px solid var(--border);
+                flex-direction: row; padding: 14px 20px;
+                overflow-x: auto; gap: 6px;
             }
-
-            .content-header h1{
-                font-size:1.6rem;
-            }
+            .sidebar-title { display: none; }
+            .nav-item { min-width: 150px; margin-bottom: 0; white-space: nowrap; }
+            .content-header { padding: 20px 24px; }
+            .content-header h1 { font-size: 1.4rem; }
+            .iframe-wrapper { padding: 14px; }
         }
 
-        @media(max-width:700px){
-            .layout{
-                flex-direction:column;
-            }
-
-            .sidebar{
-                width:100%;
-                height:auto;
-                border-right:none;
-                border-bottom:1px solid var(--border);
-                display:flex;
-                overflow-x:auto;
-                gap:10px;
-            }
-
-            .sidebar-title{
-                display:none;
-            }
-
-            .nav-link{
-                min-width:180px;
-                margin-bottom:0;
-            }
-
-            .iframe-wrapper{
-                height:100%;
-            }
+        @media (max-width: 600px) {
+            .topbar { padding: 0 20px; }
+            .brand h2 { font-size: 1.1rem; }
+            .user-chip { padding: 8px 12px; }
+            .logout-btn { padding: 8px 12px; font-size: 12px; }
         }
     </style>
 </head>
 
 <body>
 @php
-    $name = auth()->user()->name ?? 'Admin';
-    $initial = strtoupper(substr($name, 0, 1));
-    $firstName = explode(' ', $name)[0];
-
-    $studentCount = \App\Models\Student::count();
-    $resultCount = \App\Models\Result::count();
+    $name            = auth()->user()->name ?? 'Admin';
+    $initial         = strtoupper(substr($name, 0, 1));
+    $firstName       = explode(' ', $name)[0];
+    $studentCount    = \App\Models\Student::count();
+    $resultCount     = \App\Models\Result::count();
     $attendanceCount = \App\Models\Attendance::count();
+    $unreadCount     = auth()->user()->unreadNotifications->count();
+    $alerts          = \App\Models\Alert::where('user_id', auth()->id())->latest()->take(5)->get();
+    $notifications   = auth()->user()->notifications->take(5);
 
     $allUsers = \App\Models\User::latest()->get();
-
     $teacherUsers = $allUsers->filter(function ($user) {
-        if (method_exists($user, 'isTeacher')) {
-            return $user->isTeacher();
-        }
-
+        if (method_exists($user, 'isTeacher')) return $user->isTeacher();
         return data_get($user, 'role') === 'teacher';
     })->values();
-
-    $teacherCount = $teacherUsers->count();
-
-    $recentStudents = \App\Models\Student::latest()->take(5)->get();
-    $recentTeachers = $teacherUsers->take(5);
-
-    $classMap = \Illuminate\Support\Facades\DB::table('school_classes')
-        ->pluck('name', 'id');
-
-    $alerts = \App\Models\Alert::where('user_id', auth()->id())
-        ->latest()
-        ->take(5)
-        ->get();
-
-    $notifications = auth()->user()->notifications->take(5);
-    $unreadCount = auth()->user()->unreadNotifications->count();
+    $teacherCount    = $teacherUsers->count();
+    $recentStudents  = \App\Models\Student::latest()->take(5)->get();
+    $recentTeachers  = $teacherUsers->take(5);
+    $classMap        = \Illuminate\Support\Facades\DB::table('school_classes')->pluck('name', 'id');
 @endphp
 
 <div class="topbar">
     <div class="brand">
-        <img src="{{ asset('images/ema.png') }}" alt="Euromega">
+        <div class="brand-icon"><i class="ti ti-shield-check"></i></div>
         <h2>Admin Portal</h2>
     </div>
 
@@ -282,9 +246,11 @@
             <span>{{ $firstName }}</span>
         </div>
 
-        <form method="POST" action="{{ route('logout') }}">
+        <form method="POST" action="{{ route('logout') }}" style="margin:0;">
             @csrf
-            <button class="logout-btn" type="submit">Logout</button>
+            <button class="logout-btn" type="submit">
+                <i class="ti ti-logout"></i> Logout
+            </button>
         </form>
     </div>
 </div>
@@ -292,45 +258,36 @@
 <div class="layout">
     <aside class="sidebar">
         <div style="width:100%;">
+
             <div class="sidebar-title">Dashboard</div>
-
-            <a href="#"
-               class="nav-link active"
-               data-type="overview">
-                Overview
+            <a href="#" class="nav-item active" data-type="overview">
+                <i class="ti ti-home"></i> Overview
             </a>
 
-            <a href="{{ route('students.create') }}"
-               class="nav-link"
-               target="adminFrame"
-               data-title="Add Student"
+            <div class="sidebar-title gap">Students</div>
+            <a href="{{ route('students.create') }}" class="nav-item"
+               target="adminFrame" data-title="Add Student"
                data-sub="Create a new student record">
-                Add Student
+                <i class="ti ti-user-plus"></i> Add Student
             </a>
-
-            <a href="{{ route('students.index') }}"
-               class="nav-link"
-               target="adminFrame"
-               data-title="Manage Students"
+            <a href="{{ route('students.index') }}" class="nav-item"
+               target="adminFrame" data-title="Manage Students"
                data-sub="View and manage all students">
-                Manage Students
+                <i class="ti ti-users"></i> Manage Students
             </a>
 
-            <a href="{{ route('teachers.create') }}"
-               class="nav-link"
-               target="adminFrame"
-               data-title="Register Teacher"
+            <div class="sidebar-title gap">Teachers</div>
+            <a href="{{ route('teachers.create') }}" class="nav-item"
+               target="adminFrame" data-title="Register Teacher"
                data-sub="Add a new teacher to the system">
-                Register Teacher
+                <i class="ti ti-user-check"></i> Register Teacher
+            </a>
+            <a href="{{ route('teachers.index') }}" class="nav-item"
+               target="adminFrame" data-title="View Teachers"
+               data-sub="See all registered teachers">
+                <i class="ti ti-users-group"></i> View Teachers
             </a>
 
-            <a href="{{ route('teachers.index') }}"
-               class="nav-link"
-               target="adminFrame"
-               data-title="View Teachers"
-               data-sub="See all registered teachers">
-                View Teachers
-            </a>
         </div>
     </aside>
 
@@ -347,262 +304,140 @@
 </div>
 
 <script>
-    const frame = document.getElementById('adminFrame');
-    const buttons = document.querySelectorAll('.nav-link');
+    const frame     = document.getElementById('adminFrame');
+    const buttons   = document.querySelectorAll('.nav-item');
     const pageTitle = document.getElementById('pageTitle');
-    const pageSub = document.getElementById('pageSub');
+    const pageSub   = document.getElementById('pageSub');
 
     const overviewHTML = `
         <html>
         <head>
+            <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
             <style>
-                body{
-                    font-family:Arial, sans-serif;
-                    padding:30px;
-                    color:#111;
-                    background:#fff;
-                }
+                * { margin:0; padding:0; box-sizing:border-box; }
+                body { font-family:'DM Sans',sans-serif; padding:32px; color:#0c4a6e; background:white; }
 
-                .header{
-                    margin-bottom:24px;
-                }
+                .welcome { margin-bottom:28px; }
+                .welcome h2 { font-family:'DM Serif Display',serif; font-size:1.8rem; font-weight:500; margin-bottom:6px; }
+                .welcome p  { color:#94a3b8; font-size:13px; }
 
-                .header h2{
-                    margin-bottom:8px;
-                }
+                .stats { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-bottom:28px; }
+                .stat { background:#f0f9ff; border:1px solid #e0f2fe; border-radius:12px; padding:18px; }
+                .stat-label { font-size:11px; text-transform:uppercase; letter-spacing:1.5px; color:#94a3b8; font-weight:600; margin-bottom:10px; }
+                .stat-val { font-size:2rem; font-weight:700; color:#0c4a6e; font-family:'DM Serif Display',serif; margin-bottom:4px; }
+                .stat-note { font-size:12px; color:#94a3b8; }
 
-                .header p{
-                    color:#555;
-                    line-height:1.5;
-                }
+                .grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+                .card { background:#f0f9ff; border:1px solid #e0f2fe; border-radius:12px; padding:18px; }
+                .card-title { font-family:'DM Serif Display',serif; font-size:1rem; color:#0c4a6e; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+                .card-title i { color:#0ea5e9; font-size:16px; }
 
-                .stats{
-                    display:grid;
-                    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-                    gap:16px;
-                    margin-top:20px;
-                    margin-bottom:28px;
-                }
+                .box { border:1px solid #e0f2fe; background:white; border-radius:8px; padding:12px; margin-bottom:8px; transition:all .2s; }
+                .box:hover { border-color:#0ea5e9; box-shadow:0 2px 8px rgba(14,165,233,0.1); }
+                .box-name { font-size:13px; font-weight:600; color:#0c4a6e; margin-bottom:3px; }
+                .box-meta { font-size:12px; color:#94a3b8; }
+                .box-msg  { font-size:13px; color:#475569; line-height:1.6; }
+                .new-badge { background:#dc2626; color:white; font-size:10px; font-weight:700; padding:2px 7px; border-radius:20px; margin-left:6px; }
+                .empty { color:#94a3b8; font-size:13px; font-style:italic; text-align:center; padding:20px 0; }
 
-                .stat-card{
-                    border:1px solid #e5e7eb;
-                    border-radius:14px;
-                    padding:18px;
-                    background:#f9fafb;
-                    box-shadow:0 2px 8px rgba(0,0,0,0.04);
-                }
-
-                .stat-label{
-                    font-size:12px;
-                    text-transform:uppercase;
-                    letter-spacing:1px;
-                    color:#6b7280;
-                    margin-bottom:10px;
-                }
-
-                .stat-value{
-                    font-size:28px;
-                    font-weight:700;
-                    color:#111827;
-                    margin-bottom:6px;
-                }
-
-                .stat-note{
-                    font-size:13px;
-                    color:#6b7280;
-                }
-
-                .grid{
-                    display:grid;
-                    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-                    gap:16px;
-                }
-
-                .card{
-                    border:1px solid #e5e7eb;
-                    border-radius:14px;
-                    padding:18px;
-                    background:#ffffff;
-                    box-shadow:0 2px 8px rgba(0,0,0,0.04);
-                }
-
-                .card h4{
-                    margin-bottom:10px;
-                    font-size:15px;
-                    color:#111827;
-                }
-
-                .card p,
-                .card li{
-                    color:#4b5563;
-                    font-size:14px;
-                    line-height:1.6;
-                }
-
-                .list{
-                    margin-top:10px;
-                    padding-left:18px;
-                }
-
-                .badge{
-                    display:inline-block;
-                    padding:5px 10px;
-                    border-radius:999px;
-                    font-size:12px;
-                    font-weight:600;
-                    background:#ede9fe;
-                    color:#6f42c1;
-                    margin-bottom:10px;
-                }
-
-                .sub-badge{
-                    display:inline-block;
-                    padding:5px 10px;
-                    border-radius:999px;
-                    font-size:12px;
-                    font-weight:600;
-                    background:#e0f2fe;
-                    color:#0369a1;
-                    margin-bottom:10px;
-                }
-
-                .alert-box{
-                    border:1px solid #e5e7eb;
-                    background:#fafafa;
-                    padding:12px;
-                    border-radius:10px;
-                    margin-bottom:10px;
-                }
-
-                .mini-row{
-                    display:flex;
-                    justify-content:space-between;
-                    gap:10px;
-                    align-items:center;
-                    margin-bottom:8px;
-                }
-
-                .mini-name{
-                    font-weight:700;
-                    color:#111827;
-                }
-
-                .mini-meta{
-                    font-size:12px;
-                    color:#6b7280;
-                }
-
-                .empty{
-                    color:#6b7280;
-                    font-size:14px;
-                    font-style:italic;
-                }
+                @media(max-width:900px) { .stats { grid-template-columns:repeat(3,1fr); } }
+                @media(max-width:700px) { .stats { grid-template-columns:1fr 1fr; } .grid { grid-template-columns:1fr; } }
             </style>
         </head>
         <body>
-            <div class="header">
-                <h2>Welcome, {{ $firstName }}</h2>
-                <p>This is your admin dashboard overview.</p>
+            <div class="welcome">
+                <h2>Welcome, {{ $firstName }}! 👋</h2>
+                <p>Here's your school system overview for today.</p>
             </div>
 
             <div class="stats">
-                <div class="stat-card">
+                <div class="stat">
                     <div class="stat-label">Students</div>
-                    <div class="stat-value">{{ $studentCount }}</div>
-                    <div class="stat-note">Total student records</div>
+                    <div class="stat-val">{{ $studentCount }}</div>
+                    <div class="stat-note">Total records</div>
                 </div>
-
-                <div class="stat-card">
+                <div class="stat">
                     <div class="stat-label">Teachers</div>
-                    <div class="stat-value">{{ $teacherCount }}</div>
-                    <div class="stat-note">Registered teachers</div>
+                    <div class="stat-val">{{ $teacherCount }}</div>
+                    <div class="stat-note">Registered</div>
                 </div>
-
-                <div class="stat-card">
+                <div class="stat">
                     <div class="stat-label">Results</div>
-                    <div class="stat-value">{{ $resultCount }}</div>
-                    <div class="stat-note">Recorded results</div>
+                    <div class="stat-val">{{ $resultCount }}</div>
+                    <div class="stat-note">Recorded</div>
                 </div>
-
-                <div class="stat-card">
+                <div class="stat">
                     <div class="stat-label">Attendance</div>
-                    <div class="stat-value">{{ $attendanceCount }}</div>
-                    <div class="stat-note">Attendance entries</div>
+                    <div class="stat-val">{{ $attendanceCount }}</div>
+                    <div class="stat-note">Entries</div>
                 </div>
-
-                <div class="stat-card">
-                    <div class="stat-label">Unread Alerts</div>
-                    <div class="stat-value">{{ $unreadCount }}</div>
-                    <div class="stat-note">Waiting for review</div>
+                <div class="stat">
+                    <div class="stat-label">Unread</div>
+                    <div class="stat-val">{{ $unreadCount }}</div>
+                    <div class="stat-note">Alerts waiting</div>
                 </div>
             </div>
 
             <div class="grid">
-                <div class="card">
-                    <div class="sub-badge">Recent Students</div>
-                    <h4>Latest student records</h4>
 
+                {{-- Recent Students --}}
+                <div class="card">
+                    <div class="card-title"><i class="ti ti-users"></i> Recent Students</div>
                     @forelse($recentStudents as $student)
                         @php
-                            $studentName = trim(($student->first_name ?? '') . ' ' . ($student->last_name ?? ''));
+                            $studentName  = trim(($student->first_name ?? '') . ' ' . ($student->last_name ?? ''));
                             $studentClass = $classMap[$student->class_id] ?? 'No class assigned';
                         @endphp
-
-                        <div class="alert-box">
-                            <div class="mini-row">
-                                <div class="mini-name">{{ $studentName !== '' ? $studentName : 'Student' }}</div>
-                            </div>
-                            <div class="mini-meta">{{ $studentClass }}</div>
+                        <div class="box">
+                            <div class="box-name">{{ $studentName ?: 'Student' }}</div>
+                            <div class="box-meta">{{ $studentClass }}</div>
                         </div>
                     @empty
-                        <p class="empty">No students found.</p>
+                        <div class="empty">No students found.</div>
                     @endforelse
                 </div>
 
+                {{-- Recent Teachers --}}
                 <div class="card">
-                    <div class="sub-badge">Recent Teachers</div>
-                    <h4>Latest teacher accounts</h4>
-
+                    <div class="card-title"><i class="ti ti-users-group"></i> Recent Teachers</div>
                     @forelse($recentTeachers as $teacher)
                         @php
-                            $teacherName = data_get($teacher, 'name') ?: 'Teacher';
+                            $teacherName  = data_get($teacher, 'name')  ?: 'Teacher';
                             $teacherEmail = data_get($teacher, 'email') ?: 'No email';
                         @endphp
-
-                        <div class="alert-box">
-                            <div class="mini-row">
-                                <div class="mini-name">{{ $teacherName }}</div>
-                            </div>
-                            <div class="mini-meta">{{ $teacherEmail }}</div>
+                        <div class="box">
+                            <div class="box-name">{{ $teacherName }}</div>
+                            <div class="box-meta">{{ $teacherEmail }}</div>
                         </div>
                     @empty
-                        <p class="empty">No teachers found.</p>
+                        <div class="empty">No teachers found.</div>
                     @endforelse
                 </div>
 
+                {{-- Alerts & Notifications --}}
                 <div class="card">
-                    <div class="badge">Alerts & Notifications</div>
-                    <h4>Recent admin updates</h4>
+                    <div class="card-title"><i class="ti ti-bell"></i> Alerts & Notifications</div>
 
                     @forelse($alerts as $alert)
-                        <div class="alert-box">
-                            {{ $alert->message }}
+                        <div class="box">
+                            <div class="box-msg">{{ $alert->message }}</div>
                         </div>
                     @empty
-                        <p class="empty">No alerts available.</p>
+                        <div class="empty">No alerts available.</div>
                     @endforelse
 
                     @forelse($notifications as $notification)
-                        <div class="alert-box">
-                            {{ $notification->data['message'] ?? 'Notification' }}
-                            @if(is_null($notification->read_at))
-                                <div style="margin-top:6px; color:#dc2626; font-size:12px; font-weight:700;">
-                                    New
-                                </div>
-                            @endif
+                        <div class="box">
+                            <div class="box-msg">
+                                {{ $notification->data['message'] ?? 'You have a new notification' }}
+                                @if(is_null($notification->read_at))
+                                    <span class="new-badge">● NEW</span>
+                                @endif
+                            </div>
                         </div>
                     @empty
-                        <p class="empty">No notifications available.</p>
+                        <div class="empty">No notifications available.</div>
                     @endforelse
                 </div>
 
@@ -612,6 +447,10 @@
     `;
 
     frame.srcdoc = overviewHTML;
+
+    window.addEventListener('pageshow', () => {
+        frame.srcdoc = overviewHTML;
+    });
 
     buttons.forEach(btn => {
         btn.addEventListener('click', function (e) {
@@ -623,16 +462,15 @@
             if (type === 'overview') {
                 e.preventDefault();
                 pageTitle.textContent = 'Overview';
-                pageSub.textContent = 'Your admin dashboard summary.';
+                pageSub.textContent   = 'Your admin dashboard summary.';
                 frame.srcdoc = overviewHTML;
                 return;
             }
 
             pageTitle.textContent = this.dataset.title || '';
-            pageSub.textContent = this.dataset.sub || '';
+            pageSub.textContent   = this.dataset.sub   || '';
         });
     });
 </script>
-
 </body>
 </html>

@@ -12,7 +12,7 @@
                 </option>
             @endforeach
         </select>
-
+    
         <label>Subject</label>
         <select name="subject_id">
             @foreach($subjects as $subject)

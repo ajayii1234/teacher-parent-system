@@ -1,62 +1,102 @@
-<x-app-layout>
+<div style="font-family: 'DM Sans', sans-serif; padding: 40px;">
 
-    <h2>Teachers</h2>
+    {{-- Header --}}
+    <div style="margin-bottom: 28px;">
+        <h2 style="font-family: 'DM Serif Display', serif; font-size: 1.8rem; font-weight: 500;
+                   color: #0c4a6e; margin-bottom: 4px;">
+            Teachers
+        </h2>
+        <p style="color: #94a3b8; font-size: 13px;">
+            All registered teacher accounts in the system.
+        </p>
+    </div>
 
-    <table border="1" cellpadding="10" cellspacing="0">
+    {{-- Table --}}
+    <div style="border: 1px solid #e0f2fe; border-radius: 12px; overflow: hidden;">
+        <table style="width: 100%; border-collapse: collapse;">
 
-        <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Assigned Class</th>
-        </tr>
+            <thead style="background: #f0f9ff;">
+                <tr>
+                    <th style="padding: 13px 18px; text-align: left; font-size: 11px; font-weight: 600;
+                                letter-spacing: 1.5px; text-transform: uppercase; color: #94a3b8;
+                                border-bottom: 1px solid #e0f2fe;">
+                        Name
+                    </th>
+                    <th style="padding: 13px 18px; text-align: left; font-size: 11px; font-weight: 600;
+                                letter-spacing: 1.5px; text-transform: uppercase; color: #94a3b8;
+                                border-bottom: 1px solid #e0f2fe;">
+                        Email
+                    </th>
+                    <th style="padding: 13px 18px; text-align: left; font-size: 11px; font-weight: 600;
+                                letter-spacing: 1.5px; text-transform: uppercase; color: #94a3b8;
+                                border-bottom: 1px solid #e0f2fe;">
+                        Assigned Class
+                    </th>
+                </tr>
+            </thead>
 
-        @forelse($teachers as $teacher)
+            <tbody>
+                @forelse($teachers as $teacher)
+                    <tr style="border-bottom: 1px solid #e0f2fe; transition: background 0.15s;"
+                        onmouseover="this.style.background='#f8fcff'"
+                        onmouseout="this.style.background='transparent'">
 
-            <tr>
+                        {{-- Name + Avatar --}}
+                        <td style="padding: 14px 18px; font-size: 14px; color: #0c4a6e;
+                                   vertical-align: middle;">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <div style="width: 34px; height: 34px; border-radius: 8px;
+                                            background: linear-gradient(135deg,#0ea5e9,#06b6d4);
+                                            display: flex; align-items: center; justify-content: center;
+                                            color: white; font-weight: 600; font-size: 13px; flex-shrink: 0;">
+                                    {{ strtoupper(substr($teacher->name, 0, 1)) }}
+                                </div>
+                                {{ $teacher->name }}
+                            </div>
+                        </td>
 
-                {{-- NAME --}}
-                <td>
-                    {{ $teacher->name }}
-                </td>
+                        {{-- Email --}}
+                        <td style="padding: 14px 18px; font-size: 13px; color: #475569;
+                                   vertical-align: middle;">
+                            {{ $teacher->email }}
+                        </td>
 
-                {{-- EMAIL --}}
-                <td>
-                    {{ $teacher->email }}
-                </td>
+                        {{-- Assigned Class --}}
+                        <td style="padding: 14px 18px; vertical-align: middle;">
+                            @if($teacher->classTeacher)
+                                <span style="display:inline-flex; align-items:center; gap:5px;
+                                             padding:4px 10px; background:#f0f9ff;
+                                             border:1px solid #e0f2fe; border-radius:20px;
+                                             font-size:12px; font-weight:600; color:#0ea5e9;">
+                                    <i class="ti ti-door" style="font-size:12px;"></i>
+                                    {{ $teacher->classTeacher->name }}
+                                </span>
+                            @else
+                                <span style="display:inline-flex; align-items:center; gap:5px;
+                                             padding:4px 10px; background:#fff1f2;
+                                             border:1px solid #fecdd3; border-radius:20px;
+                                             font-size:12px; font-weight:600; color:#e11d48;">
+                                    <i class="ti ti-alert-circle" style="font-size:12px;"></i>
+                                    No class assigned
+                                </span>
+                            @endif
+                        </td>
 
-                {{-- CLASS --}}
-                <td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="3"
+                            style="text-align: center; padding: 48px 20px;
+                                   color: #94a3b8; font-size: 14px;">
+                            <i class="ti ti-users" style="font-size: 40px; display: block;
+                                                           margin-bottom: 10px; color: #bae6fd;"></i>
+                            No teachers found.
+                        </td>
+                    </tr>
+                @endforelse
+            </tbody>
 
-                    @if($teacher->classTeacher)
+        </table>
+    </div>
 
-                        {{ $teacher->classTeacher->name }}
-
-                    @else
-
-                        <span style="color:red;">
-                            No class assigned
-                        </span>
-
-                    @endif
-
-                </td>
-
-            </tr>
-
-        @empty
-
-            <tr>
-
-                <td colspan="3">
-
-                    No teachers found.
-
-                </td>
-
-            </tr>
-
-        @endforelse
-
-    </table>
-
-</x-app-layout>
+</div>
