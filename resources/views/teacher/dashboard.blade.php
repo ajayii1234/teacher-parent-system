@@ -260,18 +260,36 @@
                data-sub="Create a new student record">
                 <i class="ti ti-user-plus"></i> Add Student
             </a>
-            <a href="{{ route('students.index') }}" class="nav-item"
+            
+            <!-- <a href="{{ route('students.index') }}" class="nav-item"
                target="teacherFrame" data-title="View Students"
                data-sub="Browse all students">
                 <i class="ti ti-users"></i> View Students
+            </a> -->
+
+
+
+            <a href="{{ route('teacher.students') }}" class="nav-item"
+               target="teacherFrame" data-title="View Students"
+               data-sub="Browse all students">
+                <i class="ti ti-users"></i> My Students
             </a>
 
             <div class="sidebar-title gap">Academics</div>
-            <a href="{{ route('results.create') }}" class="nav-item"
+            <!-- <a href="{{ route('results.create') }}" class="nav-item"
                target="teacherFrame" data-title="Add Result"
                data-sub="Enter student results">
                 <i class="ti ti-pencil-plus"></i> Add Result
+            </a> -->
+
+
+
+            <a href="{{ route('results.class.create') }}" class="nav-item"
+               target="teacherFrame" data-title="Add Result"
+               data-sub="Enter student results">
+                <i class="ti ti-pencil-plus"></i>  My Class Results
             </a>
+
             <a href="{{ route('analytics') }}" class="nav-item"
                target="teacherFrame" data-title="Analytics"
                data-sub="View performance analytics">

@@ -75,6 +75,23 @@ Route::middleware(['auth', 'role:admin,teacher'])->group(function () {
     Route::resource('students', StudentController::class);
 });
 
+Route::post(
+    '/results/my-class/store',
+    [ResultController::class, 'storeClassResult']
+)->name('results.class.store');
+
+Route::middleware(['auth', 'role:teacher'])->group(function () {
+
+    Route::get(
+        '/results/my-class/create',
+        [ResultController::class, 'createClassResult']
+    )->name('results.class.create');
+
+});
+
+Route::get('/teacher/my-students', [StudentController::class, 'myStudents'])
+    ->name('teacher.students');
+
 Route::middleware(['auth', 'role:admin,teacher'])->group(function () {
     Route::resource('results', ResultController::class);
 });

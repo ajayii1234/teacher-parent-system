@@ -68,4 +68,29 @@ public function destroy(Student $student)
     return back()->with('success', 'Deleted');
 }
 
+public function myStudents()
+{
+    $teacher = auth()->user();
+
+    $class = $teacher->classTeacher;
+
+    if (!$class) {
+
+        return view('students.my-students', [
+            'class' => null,
+            'students' => collect()
+        ]);
+
+    }
+
+    $students = Student::with('class')
+        ->where('class_id', $class->id)
+        ->get();
+
+    return view('students.my-students', compact(
+        'students',
+        'class'
+    ));
+}
+
 }

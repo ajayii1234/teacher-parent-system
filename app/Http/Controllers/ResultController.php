@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Alert;
 use App\Models\Result;
 use App\Models\Student;
+use App\Models\Subject;
 use App\Notifications\ResultUploadedNotification;
 class ResultController extends Controller
 {
@@ -15,6 +16,61 @@ class ResultController extends Controller
     $subjects = \App\Models\Subject::all();
 
     return view('results.create', compact('students', 'subjects'));
+}
+
+
+public function createClassResult()
+{
+    $teacher = auth()->user();
+
+    $class = $teacher->classTeacher;
+
+    if (!$class) {
+
+        return view('results.class-create', [
+            'class' => null,
+            'students' => collect(),
+            'subjects' => Subject::all()
+        ]);
+
+    }
+
+    $students = Student::with('class')
+        ->where('class_id', $class->id)
+        ->get();
+
+    $subjects = Subject::all();
+
+    return view(
+        'results.class-create',
+        compact(
+            'students',
+            'subjects',
+            'class'
+        )
+    );
+}
+
+
+public function storeClassResult(Request $request)
+{
+    $teacher = auth()->user();
+
+    $class = $teacher->classTeacher;
+
+    $student = Student::findOrFail(
+        $request->student_id
+    );
+
+    if (!$class || $student->class_id != $class->id) {
+
+        abort(
+            403,
+            'You can only upload results for your class.'
+        );
+    }
+
+    return $this->store($request);
 }
 
 

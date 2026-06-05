@@ -1,18 +1,35 @@
+@if(!$class)
 
+<div style="
+    background:#fff3cd;
+    color:#856404;
+    padding:20px;
+    border-radius:8px;
+">
+
+    <h3>⚠ No Class Assigned</h3>
+
+    <p>
+        You currently do not have a class assigned.
+    </p>
+
+</div>
+
+@else
 <div style="max-width: 580px; font-family: 'DM Sans', sans-serif; padding: 40px;">
 
     {{-- Header --}}
     <div style="margin-bottom: 28px;">
         <h2 style="font-family: 'DM Serif Display', serif; font-size: 1.8rem; font-weight: 500;
                    color: #0c4a6e; margin-bottom: 6px;">
-            Add Result
+            Add Result - {{ $class->name ?? 'No Class Assigned' }}
         </h2>
         <p style="color: #94a3b8; font-size: 13px;">
             Enter the student's assessment scores for the selected term.
         </p>
     </div>
 
-    <form method="POST" action="{{ route('results.store') }}">
+    <form method="POST" action="{{ route('results.class.store') }}">
         @csrf
 
         {{-- Student + Subject --}}
@@ -35,9 +52,9 @@
                         {{ $student->first_name }}
                         {{ $student->last_name }}
 
-                        @if($student->class)
+                        <!-- @if($student->class)
                             ({{ $student->class->name }})
-                        @endif
+                        @endif -->
 
                     </option>
                 @endforeach
@@ -169,3 +186,5 @@
     input::placeholder { color: #94a3b8; }
     input[type="number"]::-webkit-inner-spin-button { opacity: 0.4; }
 </style>
+
+@endif
